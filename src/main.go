@@ -1,5 +1,7 @@
 package main
 
+var Applog FileLogger
+
 func main() {
 
 	// pass plain function to fasthttp
@@ -8,9 +10,9 @@ func main() {
 		configuration: Config{},
 	}
 
-	if nil == handler.Initialize() {
-		handler.Start()
-	}
+	handler.Init()
+	Applog.Info("Succesfully initialized shorturl handler")
+	handler.Start()
 
 	//	fasthttp.ListenAndServe(":8090", handler.HandleFastHTTP)
 

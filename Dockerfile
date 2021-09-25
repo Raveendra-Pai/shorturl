@@ -4,9 +4,8 @@ COPY go.mod ./
 COPY go.sum ./
 ADD src ./src
 ADD config ./config
-RUN mkdir -p ./bin
-
-RUN go build -o ./bin/shorturl ./src
+ADD logs ./logs
+RUN mkdir -p ./bin && go build -o ./bin/shorturl ./src
 
 EXPOSE 8082
 

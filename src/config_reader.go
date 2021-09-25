@@ -13,6 +13,7 @@ type Config struct {
 type ServerConfig struct {
 	Port    uint32
 	Baseurl string
+	Logfile string
 }
 
 func (configuration *Config) Init() error {
@@ -42,4 +43,5 @@ func (configuration *Config) Init() error {
 func setDefaults(config *Config) {
 	config.Server.Baseurl = "localhost"
 	config.Server.Port = 8081
+	config.Server.Logfile = "shorturl.log"
 }
