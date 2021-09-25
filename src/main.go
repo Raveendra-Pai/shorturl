@@ -6,7 +6,7 @@ func main() {
 
 	// pass plain function to fasthttp
 	handler := &UrlHolder{
-		urlList:       map[string]string{},
+		urlstorage: nil,
 		configuration: Config{},
 	}
 
