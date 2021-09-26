@@ -1,15 +1,7 @@
-FROM golang:1.16-alpine
+FROM golang:1.16-alpine AS shorturl
+RUN mkdir -p ./bin  && mkdir app
 WORKDIR /app
-COPY go.mod ./
-COPY go.sum ./
-ADD src ./src
-ADD config ./config
-ADD logs ./logs
-RUN mkdir -p ./bin && go build -o ./bin/shorturl ./src
-
+COPY . /app/
+RUN CGO_ENABLED=0 GOOS=linux go build -o ./bin/shorturl ./src
 EXPOSE 8082
-
 CMD ["./bin/shorturl"]
-
-
-
