@@ -11,7 +11,7 @@ import (
 )
 
 type UrlHolder struct {
-	urlstorage IUrlStorage       
+	urlstorage    IUrlStorage
 	configuration Config
 }
 
@@ -84,11 +84,11 @@ func (objurl *UrlHolder) store(url string) (string, error) {
 	}
 
 	shorturl := baseurl + "/" + hexastring
-	//objurl.urlList["/"+hexastring] = url
+
 	er := objurl.urlstorage.Insert("/"+hexastring, url)
 
 	if er != nil {
-		Applog.Error("Failed to store "+ shorturl)
+		Applog.Error("Failed to store " + shorturl)
 		return "", er
 	}
 
@@ -124,26 +124,25 @@ func (u *UrlHolder) Init() error {
 		panic("Failed to initialize configuration.. Error: " + er.Error())
 	}
 
+	if nil != Applog.Init(u.configuration.Server.Logfile) {
+		panic("Failed to initialize log")
+	}
+
 	switch typeStorage := u.configuration.GetStorageType(); typeStorage {
-		case "inmemory" : 
-			u.urlstorage = &MemoryMapStorage{}
-		case "redis" :
-		   u.urlstorage = nil
-		default:
-		   u.urlstorage = nil
+	case "inmemory":
+		u.urlstorage = &MemoryMapStorage{}
+	case "redis":
+		u.urlstorage = &RedisMap{}
+	default:
+		u.urlstorage = nil
 	}
 
 	if u.urlstorage == nil {
-		panic("Invalid value of storage type is defined ! typename: "+ u.configuration.GetStorageType())
+		panic("Invalid value of storage type is defined ! typename: " + u.configuration.GetStorageType())
 	}
-	
-	if nil != u.urlstorage.Init() {
+
+	if nil != u.urlstorage.Init(u.configuration) {
 		panic("Failed to initialize urlmaps")
-	}
-
-
-	if nil != Applog.Init(u.configuration.Server.Logfile) {
-		panic("Failed to initialize log")
 	}
 
 	return nil

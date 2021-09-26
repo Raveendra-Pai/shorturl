@@ -8,13 +8,19 @@ import (
 
 type Config struct {
 	Server ServerConfig
+	Redis  RedisConfig
 }
 
 type ServerConfig struct {
-	Port    uint32
-	Baseurl string
-	Logfile string
+	Port        uint32
+	Baseurl     string
+	Logfile     string
 	Storagetype string
+}
+
+type RedisConfig struct {
+	Ip   string
+	Port uint32
 }
 
 func (configuration *Config) Init() error {
@@ -23,7 +29,6 @@ func (configuration *Config) Init() error {
 	viper.AddConfigPath(".")
 	viper.AddConfigPath("./config")
 	viper.AddConfigPath("./../config")
-	//viper.AddConfigPath("C:\\Work\\Go\\shorturl\\config")
 
 	if err := viper.ReadInConfig(); err != nil {
 		fmt.Printf("Error reading config file, %s", err)
@@ -46,6 +51,11 @@ func setDefaults(config *Config) {
 	config.Server.Port = 8081
 	config.Server.Logfile = "shorturl.log"
 	config.Server.Storagetype = "inmemory"
+
+	if config.Server.Storagetype == "redis" {
+		config.Redis.Ip = "localhost"
+		config.Redis.Port = 6379
+	}
 }
 
 func (config *Config) GetStorageType() string {

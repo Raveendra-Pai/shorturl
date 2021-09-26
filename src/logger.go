@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"os"
-	"strings"
+	"runtime"
 )
 
 type ILogger interface {
@@ -18,8 +18,11 @@ type FileLogger struct {
 
 func (l *FileLogger) Init(filename string) error {
 
-	//Only in windows application binary has exe extension
-	isWindows := strings.HasSuffix(os.Args[0], ".exe")
+	isWindows := false
+
+	if runtime.GOOS == "windows" {
+		isWindows = true
+	}
 
 	var tmpPath = "/app/logs/"
 

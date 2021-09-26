@@ -2,7 +2,10 @@ server:
   port : 8082
   baseurl: "0.0.0.0"
   logfile: "shorturl.log"
-  storagetype : "inmemory"
+  storagetype : "redis" #storagetype can be "inmemory" or "redis"
+redis: #this block will be only valid for storagetype of "redis"
+  IP : 172.17.0.2
+  Port: 6379
   
   
  

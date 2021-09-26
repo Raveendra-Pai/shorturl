@@ -6,7 +6,7 @@ RUN mkdir -p ./bin &&  CGO_ENABLED=0 GOOS=linux go build -o ./bin/shorturl ./src
 
 FROM alpine:latest
 WORKDIR /app
-RUN mkdir -p bin && mkdir -p config
+RUN mkdir -p bin && mkdir -p config && mkdir -p logs
 COPY --from=shorturl /app/bin/* /app/bin/
 COPY --from=shorturl /app/config/* /app/config/
 COPY --from=shorturl /app/logs/* /app/logs/

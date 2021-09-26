@@ -15,7 +15,8 @@ Note: Please change the working directory to ./bin if you are running in windows
 ### Docker Support ###
 - Build
 ```
-docker build -f DockerFile . -t <image_name>
+docker run -p 6379:6379 --net bridge redis:latest (Note: Run this only for redis storage, get the ip of container using docker inspect and update redis IP in config.yml)
+docker build -f DockerFile . -t <image_name> (Note: -f Dockerfile flag doesnt work on windows docker desktop)
 ```
 - Run
 ```
