@@ -1,6 +1,6 @@
 server:
   port : 8082
-  baseurl: "localhost"
+  baseurl: "0.0.0.0"
   logfile: "shorturl.log"
   storagetype : "inmemory"
   
