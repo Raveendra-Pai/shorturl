@@ -12,6 +12,16 @@ The Application maintains map internally, which will store the short url as the 
 
 Note: Please change the working directory to ./bin if you are running in windows
 
+### Docker Support ###
+- Build
+```
+docker build -f DockerFile . -t <image_name>
+```
+- Run
+```
+docker run  -p 8082:8082 <image_name> 
+```
+
 TODO: 
 1. Adding Redis cache to store url 
 2. Store the url in pg db server and retrieve from db only if its not found caching.
