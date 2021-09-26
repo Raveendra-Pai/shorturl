@@ -10,5 +10,6 @@ RUN mkdir -p bin && mkdir -p config
 COPY --from=shorturl /app/bin/* /app/bin/
 COPY --from=shorturl /app/config/* /app/config/
 COPY --from=shorturl /app/logs/* /app/logs/
+
 EXPOSE 8082
 CMD ["./bin/shorturl"]
